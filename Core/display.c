@@ -1952,6 +1952,9 @@ skip_slow_mode_3:
                 gb->wy_triggered = true;
             }
             gb->cycles_for_line = 0;
+            if (gb->current_line == LINES - 1) {
+                gb->overclock_cycles = (70224 * 200) << gb->cgb_double_speed;  // 300% video frame time
+            }
             GB_SLEEP(gb, display, 31, 2);
             if (gb->current_line != LINES - 1) {
                 gb->mode_for_interrupt = 2;
