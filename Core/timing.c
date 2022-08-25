@@ -411,6 +411,18 @@ void GB_advance_cycles(GB_gameboy_t *gb, uint8_t cycles)
     // Affected by speed boost
     gb->dma_cycles = cycles;
 
+    if (gb->overclock_cycles > 0) {
+        if (unlikely(!gb->cgb_double_speed)) {
+            cycles <<= 1;
+        }
+        gb->overclock_cycles -= cycles;
+        GB_joypad_run(gb, cycles);
+        if (unlikely(!gb->stopped)) {
+            GB_dma_run(gb);
+        }
+        return;
+    }
+
     timers_run(gb, cycles);
     camera_run(gb, cycles);
 
