@@ -808,6 +808,7 @@ struct GB_gameboy_internal_s {
         GB_rumble_mode_t rumble_mode;
         uint32_t rumble_on_cycles;
         uint32_t rumble_off_cycles;
+        uint32_t overclock_cycles;
                
         /* Temporary state */
         bool wx_just_changed;
